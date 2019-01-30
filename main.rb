@@ -1,8 +1,7 @@
 require './inventario'
 require './producto'
 
-inventario = Inventario.new
-producto = Producto.new
+inventario = Inventario.new 
 
 seguir_inventario = true 
 
@@ -14,58 +13,64 @@ while seguir_inventario == true
   ____________________________
      MENU DE INICIO
      1. Agregar un nuevo producto
-     2. agregar exitencia a un producto
+     2. Salida de productos 
      3. Eliminar un producto
-     4. Salida de productos 
-     5. listado de producto 
-     6. informacion de un producto 
+     4. Añadir exixtencia
+     5. Listado de producto 
+     6. Informacion de un producto 
      ELIJA UNA OPCION:
      """
-  opcion = gets.chomp
-
-  case opcion 
+  opcion = gets.chomp.to_i
+ 
+  case opcion
+    
     when 1
-      print "ingrese el producto: "
-      n = gets.chomp
-      print "ingrse la cantidad de articulos: "
-      c = gets.chomp
-      inventario.agregar(n,c)
+      print "Ingrese el producto: "
+      name = gets.chomp
+      print "Ingrse la cantidad de productos: "
+      cant = gets.chomp.to_i
+      inventario.agregar(name,cant)
 
     when 2
-      print "ingrese el nombre del articulo al que desea sacar cierta cantidad: "
-      x = gets.chomp
-      print "ingrese la cantidad de exitencias que desea dar salida: "
-      y = gets.chomp
-      inventario.restar_producto(x,y)
+      print "Ingrese el nombre del producto al que desea sacar cierta cantidad: "
+      name = gets.chomp
+      print "Ingrese la cantidad de exitencias que desea dar salida: "
+      cant = gets.chomp.to_i
+      inventario.restar_producto(name,cant)
 
     when 3
-      print "ingrse el nombre del articulo que desea eliminar: "
-      x = gets.chomp 
-      print "esta seguro que desea eliminar? s/n"
-      r = gets.chomp 
-      if r == "s"
-        inventario.eliminar(x)
-      elsif r == n 
-        print "El articulo no fue eliminado"
+      print "Ingrse el nombre del producto que desea eliminar: "
+      name = gets.chomp 
+      print "Esta seguro que desea eliminar? s/n"
+      resp = gets.chomp 
+      if resp == "s"
+        inventario.eliminar(name)
+        puts "Producto eliminado"
+      elsif resp == "n" 
+        print "El producto no fue eliminado"
       end 
 
     when 4
-      print "Ingrese el nombre del articulo al que desea añadir existencia: "
-      x = gets.chomp
+      print "Ingrese el nombre del producto al que desea añadir existencia: "
+      name = gets.chomp
       print "Ingrese la cantidad de exitencias que desea añadir: "
-      y =gets.chomp
+      cant= gets.chomp.to_i
+      inventario.sumar_producto(name,cant)
 
     when 5
       puts "Articulos en el inventario:"
       inventario.listado
 
     when 6
-      puts "ingrese el nombre del articulo del que desea ver histoial: "
-      x = gets.chomp
-      inventario.informacion(x)
-    else puts "Opcion incorrecta "
-      
+      puts "Ingrese el nombre del producto del que desea ver histoial: "
+      name = gets.chomp
+      inventario.informacion(name)
+
+    else 
+    puts "Opcion incorrecta "
   end 
-  puts "desea continuar? n/s"
-  seguir_inventario = false if respuesta == "n"
-end 
+  puts "Desea continuar? n/s"
+  respuesta = gets.chomp
+  respuesta.downcase
+  seguir_inventario = false if respuesta == "n" 
+end
